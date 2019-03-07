@@ -1,5 +1,5 @@
+#include "tableVis.h"
 #include <stdio.h>
-
 int main() {
     char board[8][8] = {{'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},
                         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
@@ -18,7 +18,7 @@ int main() {
     }
     FILE *fp;
     fp = fopen("h.html", "w+");
-    fprintf(fp, R"(<!DOCTYPE html>
+    fprintf(fp, R"H(<!DOCTYPE html>
 	<html>
 	<head>
 	  <meta charset="utf-8">
@@ -62,93 +62,25 @@ int main() {
 	    table.chessboard .black.pawn:before   { content: "\265F"; }
 	  </style>
 	</head>
-
 	<body>
 	  <table class="chessboard">
-	    <caption>1. e2-e4</caption>
-	    <tr>
-	      <td><span class="black rook"></span></td>
-	      <td><span class="black knight"></span></td>
-	      <td><span class="black bishop"></span></td>
-	      <td><span class="black queen"></span></td>
-	      <td><span class="black king"></span></td>
-	      <td><span class="black bishop"></span></td>
-	      <td><span class="black knight"></span></td>
-	      <td><span class="black rook"></span></td>
-	    </tr>
-	    <tr>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	      <td><span class="black pawn"></span></td>
-	    </tr>
-	    <tr>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td><span class="white pawn"></span></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <td><span class="white pawn"></span></td>
-	      <td><span class="white pawn"></span></td>
-	      <td><span class="white pawn"></span></td>
-	      <td><span class="white pawn"></span></td>
-	      <td></td>
-	      <td><span class="white pawn"></span></td>
-	      <td><span class="white pawn"></span></td>
-	      <td><span class="white pawn"></span></td>
-	    </tr>
-	    <tr>
-	      <td><span class="white rook"></span></td>
-	      <td><span class="white knight"></span></td>
-	      <td><span class="white bishop"></span></td>
-	      <td><span class="white queen"></span></td>
-	      <td><span class="white king"></span></td>
-	      <td><span class="white bishop"></span></td>
-	      <td><span class="white knight"></span></td>
-	      <td><span class="white rook"></span></td>
-	    </tr>
+	    <caption>1. e2-e4</caption>)H");
+
+    for (int i = 0; i < 9; ++i) {
+        fprintf(fp, R"H(<tr>
+)H");
+        for (int j = 0; j < 9; ++j) {
+            vis(board[i][j], fp);
+        }
+        fprintf(fp, R"H(</tr>
+)H");
+    }
+
+    fprintf(fp, R"H(
+
 	  </table>
 	</body>
-	</html>)");
+	</html>)H");
 
     // fclose(fp);
     return 0;
