@@ -20,12 +20,14 @@ int main() {
     fp = fopen("h.html", "w+");
     openHTML(fp);
     for (int i = 0; i < 9; ++i) {
-        fprintf(fp, R"H(<tr>
+        fprintf(fp, R"H(
+        	<tr>
 )H");
         for (int j = 0; j < 9; ++j) {
             tableVis(board[i][j], fp);
         }
-        fprintf(fp, R"H(</tr>
+        fprintf(fp, R"H(
+        	</tr>
 )H");
     }
     closeHTML(fp);

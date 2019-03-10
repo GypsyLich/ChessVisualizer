@@ -1,59 +1,86 @@
 #include "tableVis.h"
 #include <stdio.h>
+#include <string.h>
 
 void tableVis(char cell, FILE *fp) {
+
+    char boardFigures[14] = {' ', 'p', 'n', 'b', 'r', 'q', 'k',
+                             'P', 'N', 'B', 'R', 'Q', 'K'};
+    printf("%s %s\n", &boardFigures[1], &cell);
     int sw =
-        cell == " "
+        strcmp(&cell, &boardFigures[0]) == 0
             ? 0
-            : cell == "p"
+            : strcmp(&cell, &boardFigures[1]) == 0
                   ? 11
-                  : cell == "P"
+                  : strcmp(&cell, &boardFigures[7]) == 0
                         ? 21
-                        : cell == "n"
+                        : strcmp(&cell, &boardFigures[2]) == 0
                               ? 12
-                              : cell == "N"
+                              : strcmp(&cell, &boardFigures[8]) == 0
                                     ? 22
-                                    : cell == "b"
+                                    : strcmp(&cell, &boardFigures[3]) == 0
                                           ? 13
-                                          : cell == "B"
+                                          : strcmp(&cell, &boardFigures[9]) == 0
                                                 ? 23
-                                                : cell == "r"
+                                                : strcmp(&cell,
+                                                         &boardFigures[4]) == 0
                                                       ? 14
-                                                      : cell == "R"
+                                                      : strcmp(&cell,
+                                                               &boardFigures
+                                                                   [10]) == 0
                                                             ? 24
-                                                            : cell == "q"
+                                                            : strcmp(
+                                                                  &cell,
+                                                                  &boardFigures
+                                                                      [5]) == 0
                                                                   ? 15
-                                                                  : cell == "Q"
+                                                                  : strcmp(
+                                                                        &cell,
+                                                                        &boardFigures
+                                                                            [11]) ==
+                                                                            0
                                                                         ? 25
-                                                                        : cell == "k"
+                                                                        : strcmp(
+                                                                              &cell,
+                                                                              &boardFigures
+                                                                                  [6]) ==
+                                                                                  0
                                                                               ? 16
-                                                                              : cell == "K"
+                                                                              : strcmp(
+                                                                                    &cell,
+                                                                                    &boardFigures
+                                                                                        [12]) ==
+                                                                                        0
                                                                                     ? 26
                                                                                     : -1;
     switch (sw) {
     case 0:
-        fprintf(fp, R"H(          <td></td>
-                )H");
+        fprintf(fp, R"H(                <td></td>
+)H");
         break;
     case 1:
-        fprintf(fp, R"H(          <td><span class="black pawn"></span></td>
-                )H");
+        fprintf(fp,
+                R"H(                <td><span class="black pawn"></span></td>
+)H");
         break;
     case 21:
-        fprintf(fp, R"H(          <td><span class="white pawn"></span></td>
-                )H");
+        fprintf(fp,
+                R"H(                <td><span class="white pawn"></span></td>
+)H");
         break;
     case 16:
-        fprintf(fp, R"H(          <td><span class="black king"></span></td>
-                )H");
+        fprintf(fp,
+                R"H(                <td><span class="black king"></span></td>
+)H");
         break;
     case 26:
-        fprintf(fp, R"H(          <td><span class="white king"></span></td>
-                )H");
+        fprintf(fp,
+                R"H(                <td><span class="white king"></span></td>
+)H");
         break;
     default:
-        fprintf(fp, R"H(          <td></td>
-                )H");
+        fprintf(fp, R"H(                <td>help</td>
+)H");
         break;
     }
 }
