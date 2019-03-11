@@ -3,77 +3,68 @@
 #include <string.h>
 
 void tableVis(char cell, FILE *fp) {
-
-    char boardFigures[14] = {' ', 'p', 'n', 'b', 'r', 'q', 'k',
-                             'P', 'N', 'B', 'R', 'Q', 'K'};
-    printf("%s %s\n", &boardFigures[1], &cell);
-    int sw =
-        strcmp(&cell, &boardFigures[0]) == 0
-            ? 0
-            : strcmp(&cell, &boardFigures[1]) == 0
-                  ? 11
-                  : strcmp(&cell, &boardFigures[7]) == 0
-                        ? 21
-                        : strcmp(&cell, &boardFigures[2]) == 0
-                              ? 12
-                              : strcmp(&cell, &boardFigures[8]) == 0
-                                    ? 22
-                                    : strcmp(&cell, &boardFigures[3]) == 0
-                                          ? 13
-                                          : strcmp(&cell, &boardFigures[9]) == 0
-                                                ? 23
-                                                : strcmp(&cell,
-                                                         &boardFigures[4]) == 0
-                                                      ? 14
-                                                      : strcmp(&cell,
-                                                               &boardFigures
-                                                                   [10]) == 0
-                                                            ? 24
-                                                            : strcmp(
-                                                                  &cell,
-                                                                  &boardFigures
-                                                                      [5]) == 0
-                                                                  ? 15
-                                                                  : strcmp(
-                                                                        &cell,
-                                                                        &boardFigures
-                                                                            [11]) ==
-                                                                            0
-                                                                        ? 25
-                                                                        : strcmp(
-                                                                              &cell,
-                                                                              &boardFigures
-                                                                                  [6]) ==
-                                                                                  0
-                                                                              ? 16
-                                                                              : strcmp(
-                                                                                    &cell,
-                                                                                    &boardFigures
-                                                                                        [12]) ==
-                                                                                        0
-                                                                                    ? 26
-                                                                                    : -1;
-    switch (sw) {
-    case 0:
+    switch (cell) {
+    case 32:
         fprintf(fp, R"H(                <td></td>
 )H");
         break;
-    case 1:
+    case 112:
         fprintf(fp,
                 R"H(                <td><span class="black pawn"></span></td>
 )H");
         break;
-    case 21:
+    case 114:
         fprintf(fp,
-                R"H(                <td><span class="white pawn"></span></td>
+                R"H(                <td><span class="black rook"></span></td>
 )H");
         break;
-    case 16:
+    case 110:
+        fprintf(fp,
+                R"H(                <td><span class="black knight"></span></td>
+)H");
+        break;
+
+    case 98:
+        fprintf(fp,
+                R"H(                <td><span class="black bishop"></span></td>
+)H");
+        break;
+    case 113:
+        fprintf(fp,
+                R"H(                <td><span class="black queen"></span></td>
+)H");
+        break;
+    case 107:
         fprintf(fp,
                 R"H(                <td><span class="black king"></span></td>
 )H");
         break;
-    case 26:
+    case 80:
+        fprintf(fp,
+                R"H(                <td><span class="white pawn"></span></td>
+)H");
+        break;
+    case 82:
+        fprintf(fp,
+                R"H(                <td><span class="white rook"></span></td>
+)H");
+        break;
+    case 78:
+        fprintf(fp,
+                R"H(                <td><span class="white knight"></span></td>
+)H");
+        break;
+    case 66:
+        fprintf(fp,
+                R"H(                <td><span class="white bishop"></span></td>
+)H");
+        break;
+    case 81:
+        fprintf(fp,
+                R"H(                <td><span class="white queen"></span></td>
+)H");
+        break;
+    case 75:
         fprintf(fp,
                 R"H(                <td><span class="white king"></span></td>
 )H");
