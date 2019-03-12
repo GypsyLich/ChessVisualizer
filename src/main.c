@@ -1,4 +1,4 @@
-#include "tableVis.h"
+#include "board_print_html.h"
 #include <stdio.h>
 int main() {
     char board[8][8] = {{'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},
@@ -17,7 +17,7 @@ int main() {
         printf("\n");
     }
     FILE *fp;
-    fp = fopen("h.html", "w+");
+    fp = fopen("bin/h.html", "w+");
     openHTML(fp);
     for (int i = 0; i < 8; ++i) {
         fprintf(fp, R"H(
