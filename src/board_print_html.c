@@ -2,6 +2,27 @@
 #include <stdio.h>
 #include <string.h>
 
+void boardPrint(int i, char board[8][8]) {
+    FILE *fp;
+    char path[15];
+    sprintf(path, "bin/%d.html", i);
+    fp = fopen(path, "w+");
+    openHTML(fp);
+    for (int i = 0; i < 8; ++i) {
+        fprintf(fp, R"H(
+            <tr>
+)H");
+        for (int j = 0; j < 8; ++j) {
+            tableVis(board[i][j], fp);
+        }
+        fprintf(fp, R"H(
+            </tr>
+)H");
+    }
+    closeHTML(fp);
+    fclose(fp);
+}
+
 void tableVis(char cell, FILE *fp) {
     switch (cell) {
     case 32:

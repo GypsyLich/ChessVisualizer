@@ -16,22 +16,14 @@ int main() {
         }
         printf("\n");
     }
-    FILE *fp;
-    fp = fopen("bin/h.html", "w+");
-    openHTML(fp);
-    for (int i = 0; i < 8; ++i) {
-        fprintf(fp, R"H(
-        	<tr>
-)H");
-        for (int j = 0; j < 8; ++j) {
-            char cell = board[i][j];
-            tableVis(cell, fp);
+    int i = 0;
+    while (1) {
+        char path[15];
+        sprintf(path, "bin/%d.html", ++i);
+        if (remove(path) != 0) {
+            break;
         }
-        fprintf(fp, R"H(
-        	</tr>
-)H");
     }
-    closeHTML(fp);
-    fclose(fp);
+    boardPrint(1, board);
     return 0;
 }
