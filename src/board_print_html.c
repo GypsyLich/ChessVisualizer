@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include <string.h>
 
-void boardPrint(int i, char board[8][8]) {
-    FILE *fp;
-    char path[15];
-    sprintf(path, "bin/%d.html", i);
-    fp = fopen(path, "w+");
-    openHTML(fp);
+void boardPrint(FILE *fp, int turnNumber, char turnAction[], char board[8][8]) {
+
+    fprintf(fp, R"H(
+    <table class="chessboard">
+        <caption>)H");
+    fprintf(fp, "%d. %s</caption>\n", turnNumber, turnAction);
+
     for (int i = 0; i < 8; ++i) {
         fprintf(fp, R"H(
             <tr>
@@ -19,8 +20,10 @@ void boardPrint(int i, char board[8][8]) {
             </tr>
 )H");
     }
-    closeHTML(fp);
-    fclose(fp);
+
+    fprintf(fp, R"H(
+
+      </table>)H");
 }
 
 void tableVis(char cell, FILE *fp) {
@@ -143,15 +146,11 @@ void openHTML(FILE *fp) {
         table.chessboard .black.pawn:before   { content: "\265F"; }
       </style>
     </head>
-    <body>
-      <table class="chessboard">
-        <caption>1. e2-e4</caption>)H");
+    <body>)H");
 }
 
 void closeHTML(FILE *fp) {
     fprintf(fp, R"H(
-
-      </table>
     </body>
     </html>)H");
 }

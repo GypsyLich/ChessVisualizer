@@ -16,14 +16,15 @@ int main() {
         }
         printf("\n");
     }
-    int i = 0;
-    while (1) {
-        char path[15];
-        sprintf(path, "bin/%d.html", ++i);
-        if (remove(path) != 0) {
-            break;
-        }
-    }
-    boardPrint(1, board);
+
+    remove("bin/h.html");
+    FILE *fp;
+    fp = fopen("bin/h.html", "w+");
+    openHTML(fp);
+
+    boardPrint(fp, 1, "e2-e4", board);
+
+    closeHTML(fp);
+    fclose(fp);
     return 0;
 }
