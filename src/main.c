@@ -9,7 +9,7 @@ int main() {
                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
                         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
                         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}};
-
+    char turn[10];
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             printf("%c ", board[i][j]);
@@ -18,13 +18,30 @@ int main() {
     }
 
     remove("bin/h.html");
-    FILE *fp;
-    fp = fopen("bin/h.html", "w+");
-    openHTML(fp);
 
-    boardPrint(fp, 1, "e2-e4", board);
+    FILE *htmlFile;
+    htmlFile = fopen("bin/h.html", "w+");
+    FILE *logFile;
+    logFile = fopen("bin/turnsLog.txt", "r");
+    if (logFile == NULL) {
+        printf("ERROR: Turns log file(bin/turnsLog.txt) is missing \n");
+        return -1;
+    }
 
-    closeHTML(fp);
-    fclose(fp);
+    while (1) {
+        fscanf(logFile, "%s ", turn);
+        printf("%s\n", turn);
+        if (feof(logFile)) {
+            break;
+        }
+    }
+    fclose(logFile);
+
+    openHTML(htmlFile);
+
+    boardPrint(htmlFile, 1, "e2-e4", board);
+
+    closeHTML(htmlFile);
+    fclose(htmlFile);
     return 0;
 }
