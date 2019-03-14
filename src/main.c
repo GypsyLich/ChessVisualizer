@@ -31,14 +31,14 @@ int main() {
         }
 
         fscanf(logFile, "%s ", turn);
-        makeaTurn(turn, 1, board);
+        makeaTurn(turn, 1, &board);
         boardPrint(htmlFile, turnNumber, turn, board);
         if (feof(logFile)) {
             break;
         }
 
         fscanf(logFile, "%s ", turn);
-        makeaTurn(turn, 2, board);
+        makeaTurn(turn, 2, &board);
         boardPrint(htmlFile, turnNumber++, turn, board);
     }
 
