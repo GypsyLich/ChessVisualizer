@@ -31,6 +31,10 @@ int main() {
         }
 
         fscanf(logFile, "%s ", turn);
+        if (makeaTurn(turn, 1, &board)) {
+            printf("ERROR: incorect input in turn %d\n", turnNumber);
+            return -1;
+        }
         makeaTurn(turn, 1, &board);
         boardPrint(htmlFile, turnNumber, turn, board);
         if (feof(logFile)) {
@@ -38,7 +42,10 @@ int main() {
         }
 
         fscanf(logFile, "%s ", turn);
-        makeaTurn(turn, 2, &board);
+        if (makeaTurn(turn, 2, &board)) {
+            printf("ERROR: incorect input in turn %d\n", turnNumber);
+            return -1;
+        }
         boardPrint(htmlFile, turnNumber++, turn, board);
     }
 

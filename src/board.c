@@ -47,8 +47,6 @@ int turnParse(char turn[10]) {
                                 (turn[5] > 48 && turn[5] < 58))
                                    ? 2
                                    : 0;
-    printf("%d %d %d %d \n", checkOnFigure, checkOnTurnStart, checkOnTurn,
-           checkOnTurnEnd);
     return checkOnFigure + checkOnTurnStart + checkOnTurn + checkOnTurnEnd;
 }
 
