@@ -1,3 +1,4 @@
+#include "board.h"
 #include "board_print_html.h"
 #include <stdio.h>
 int main() {
@@ -10,15 +11,9 @@ int main() {
                         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
                         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}};
     char turn[10];
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            printf("%c ", board[i][j]);
-        }
-        printf("\n");
-    }
 
     remove("bin/h.html");
-
+    int turnNumber = 1;
     FILE *htmlFile;
     htmlFile = fopen("bin/h.html", "w+");
     FILE *logFile;
@@ -28,19 +23,26 @@ int main() {
         return -1;
     }
 
+    openHTML(htmlFile);
+
     while (1) {
-        fscanf(logFile, "%s ", turn);
-        printf("%s\n", turn);
         if (feof(logFile)) {
             break;
         }
+
+        fscanf(logFile, "%s ", turn);
+        makeaTurn(turn, 1, board);
+        boardPrint(htmlFile, turnNumber, turn, board);
+        if (feof(logFile)) {
+            break;
+        }
+
+        fscanf(logFile, "%s ", turn);
+        makeaTurn(turn, 2, board);
+        boardPrint(htmlFile, turnNumber++, turn, board);
     }
+
     fclose(logFile);
-
-    openHTML(htmlFile);
-
-    boardPrint(htmlFile, 1, "e2-e4", board);
-
     closeHTML(htmlFile);
     fclose(htmlFile);
     return 0;
