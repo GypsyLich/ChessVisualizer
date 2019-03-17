@@ -12,10 +12,9 @@ int main() {
                         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}};
     char turn[10];
 
-    remove("bin/h.html");
     int turnNumber = 1;
     FILE *htmlFile;
-    htmlFile = fopen("bin/h.html", "w+");
+    htmlFile = fopen("bin/h.html", "w");
     FILE *logFile;
     logFile = fopen("bin/turnsLog.txt", "r");
     if (logFile == NULL) {
