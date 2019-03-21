@@ -9,78 +9,79 @@ void boardPrint(FILE *fp, int turnNumber) {
     fprintf(fp, "%d. %s</caption>\n", turnNumber, turn);
 
     for (int i = 0; i < 8; ++i) {
-        fprintf(fp, R"H(<tr>H");
-for (int j = 0; j < 8; ++j) {
-tableVis(board[i][j], fp);
-}
-fprintf(fp, R"H(</tr>)H");
+        fprintf(fp, R"H(<tr>)H");
+        for (int j = 0; j < 8; ++j) {
+            tableVis(i, j, fp);
+        }
+        fprintf(fp, R"H(</tr>)H");
     }
 
     fprintf(fp, R"H(</table>)H");
 }
 
-void tableVis(char cell, FILE *fp) {
-    switch (cell) {
-    case 32:
+void tableVis(int i, int j, FILE *fp) {
+    int sw = board[i][j].color == black ? 10 : 1;
+    switch (board[i][j].figure * sw) {
+    case 0:
         fprintf(fp, R"H(                <td></td>)H");
         break;
-    case 112:
+    case 10:
         fprintf(
             fp,
             R"H(                <td><span class="black pawn"></span></td>)H");
         break;
-    case 114:
+    case 20:
         fprintf(
             fp,
             R"H(                <td><span class="black rook"></span></td>)H");
         break;
-    case 110:
+    case 30:
         fprintf(
             fp,
             R"H(                <td><span class="black knight"></span></td>)H");
         break;
 
-    case 98:
+    case 40:
         fprintf(
             fp,
             R"H(                <td><span class="black bishop"></span></td>)H");
         break;
-    case 113:
+    case 50:
         fprintf(
             fp,
             R"H(                <td><span class="black queen"></span></td>)H");
         break;
-    case 107:
+    case 60:
         fprintf(
             fp,
             R"H(                <td><span class="black king"></span></td>)H");
         break;
-    case 80:
+    case 1:
         fprintf(
             fp,
             R"H(                <td><span class="white pawn"></span></td>)H");
         break;
-    case 82:
+    case 2:
         fprintf(
             fp,
             R"H(                <td><span class="white rook"></span></td>)H");
         break;
-    case 78:
+    case 3:
         fprintf(
             fp,
             R"H(                <td><span class="white knight"></span></td>)H");
         break;
-    case 66:
+    case 4:
         fprintf(
             fp,
             R"H(                <td><span class="white bishop"></span></td>)H");
         break;
-    case 81:
+    case 5:
         fprintf(
             fp,
             R"H(                <td><span class="white queen"></span></td>)H");
         break;
-    case 75:
+    case 6:
         fprintf(
             fp,
             R"H(                <td><span class="white king"></span></td>)H");
