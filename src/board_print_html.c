@@ -1,11 +1,12 @@
 #include "board_print_html.h"
+#include "main.h"
 #include <stdio.h>
 #include <string.h>
 
-void boardPrint(FILE *fp, int turnNumber, char turnAction[], char board[8][8]) {
+void boardPrint(FILE *fp, int turnNumber) {
 
     fprintf(fp, R"H(<table class="chessboard"><caption>)H");
-    fprintf(fp, "%d. %s</caption>\n", turnNumber, turnAction);
+    fprintf(fp, "%d. %s</caption>\n", turnNumber, turn);
 
     for (int i = 0; i < 8; ++i) {
         fprintf(fp, R"H(<tr>H");
