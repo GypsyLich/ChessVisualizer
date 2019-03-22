@@ -1,3 +1,3 @@
 os: linux
 language: C
-install: Make All
+install: make All
