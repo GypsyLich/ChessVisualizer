@@ -1,6 +1,7 @@
 #pragma once
-int makeaTurn(int color);
-int checkLogic(int color, int FigureToMakeATurn, int startingCellNumber,
-               int startingCellLetter, int endingCellNumber,
-               int endingCellLetter);
-int turnParse();
+#include "main.h"
+int makeaTurn(struct Board *board);
+int checkLogic(struct Board *board, int FigureToMakeATurn,
+               int startingCellNumber, int startingCellLetter,
+               int endingCellNumber, int endingCellLetter);
+int turnParse(struct Board *board, int *FigureToMakeATurn);
