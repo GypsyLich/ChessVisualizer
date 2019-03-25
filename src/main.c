@@ -7,17 +7,37 @@ struct Board *intializeBoard() {
     struct Board *board = malloc(sizeof(*board));
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            board->thisCell[i][j].figure =
-                i > 1 && i < 6 ? empty
-                               : i == 1 || i == 6
-                                     ? pawn
-                                     : j == 0 || j == 7
-                                           ? rook
-                                           : j == 1 || j == 6
-                                                 ? knight
-                                                 : j == 2 || j == 5
-                                                       ? bishop
-                                                       : j == 3 ? queen : king;
+            int sw = i == 1 || i == 6 ? 10 : j;
+            sw += i > 1 && i < 6 ? 11 : 0;
+            switch (sw) {
+            case 10:
+                board->thisCell[i][j].figure = pawn;
+                break;
+            case 0:
+                board->thisCell[i][j].figure = rook;
+            case 7:
+                board->thisCell[i][j].figure = rook;
+                break;
+            case 1:
+                board->thisCell[i][j].figure = knight;
+            case 6:
+                board->thisCell[i][j].figure = knight;
+                break;
+            case 2:
+                board->thisCell[i][j].figure = bishop;
+            case 5:
+                board->thisCell[i][j].figure = bishop;
+                break;
+            case 3:
+                board->thisCell[i][j].figure = queen;
+                break;
+            case 4:
+                board->thisCell[i][j].figure = king;
+                break;
+            default:
+                board->thisCell[i][j].figure = empty;
+                break;
+            }
             printf("%d ", board->thisCell[i][j].figure);
             board->thisCell[i][j].colorOfTheFigure =
                 i < 2 ? black : i > 5 ? white : none;
@@ -50,7 +70,7 @@ int main() {
             printf("ERROR: incorect input in turn %d\n", turnNumber);
             return -1;
         }
-        boardPrint(htmlFile, turnNumber);
+        boardPrint(board, htmlFile, turnNumber);
         if (feof(logFile)) {
             break;
         }
@@ -60,7 +80,7 @@ int main() {
             printf("ERROR: incorect input in turn %d\n", turnNumber);
             return -1;
         }
-        boardPrint(htmlFile, turnNumber++);
+        boardPrint(board, htmlFile, turnNumber++);
     }
 
     fclose(logFile);
