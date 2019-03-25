@@ -1,17 +1,16 @@
 #include "board_print_html.h"
-#include "main.h"
 #include <stdio.h>
 #include <string.h>
 
-void boardPrint(FILE *fp, int turnNumber) {
+void boardPrint(struct Board *board, FILE *fp, int turnNumber) {
 
     fprintf(fp, R"H(<table class="chessboard"><caption>)H");
-    fprintf(fp, "%d. %s</caption>\n", turnNumber, turn);
+    fprintf(fp, "%d. %s</caption>\n", turnNumber, board->turn);
 
     for (int i = 0; i < 8; ++i) {
         fprintf(fp, R"H(<tr>)H");
         for (int j = 0; j < 8; ++j) {
-            tableVis(i, j, fp);
+            tableVis(board, i, j, fp);
         }
         fprintf(fp, R"H(</tr>)H");
     }
@@ -19,9 +18,9 @@ void boardPrint(FILE *fp, int turnNumber) {
     fprintf(fp, R"H(</table>)H");
 }
 
-void tableVis(int i, int j, FILE *fp) {
-    int sw = board[i][j].color == black ? 10 : 1;
-    switch (board[i][j].figure * sw) {
+void tableVis(struct Board *board, int i, int j, FILE *fp) {
+    int sw = board->thisCell[i][j].colorOfTheFigure == black ? 10 : 1;
+    switch (board->thisCell[i][j].figure * sw) {
     case 0:
         fprintf(fp, R"H(                <td></td>)H");
         break;

@@ -2,10 +2,12 @@
 #include "board.h"
 #include "board_print_html.h"
 #include <stdio.h>
-void intializeBoard() {
+#include <stdlib.h>
+struct Board *intializeBoard() {
+    struct Board *board = malloc(sizeof(*board));
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            board[i][j].figure =
+            board->thisCell[i][j].figure =
                 i > 1 && i < 6 ? empty
                                : i == 1 || i == 6
                                      ? pawn
@@ -16,14 +18,16 @@ void intializeBoard() {
                                                  : j == 2 || j == 5
                                                        ? bishop
                                                        : j == 3 ? queen : king;
-            printf("%d ", board[i][j].figure);
-            board[i][j].color = i < 2 ? black : i > 5 ? white : none;
+            printf("%d ", board->thisCell[i][j].figure);
+            board->thisCell[i][j].colorOfTheFigure =
+                i < 2 ? black : i > 5 ? white : none;
         }
         printf("\n");
     }
+    return board;
 }
 int main() {
-    intializeBoard();
+    struct Board *board = intializeBoard();
     int turnNumber = 1;
     FILE *htmlFile;
     htmlFile = fopen("h.html", "w");
@@ -41,8 +45,8 @@ int main() {
             break;
         }
 
-        fscanf(logFile, "%s ", turn);
-        if (makeaTurn(1)) {
+        fscanf(logFile, "%s ", board->turn);
+        if (makeaTurn(board)) {
             printf("ERROR: incorect input in turn %d\n", turnNumber);
             return -1;
         }
@@ -51,8 +55,8 @@ int main() {
             break;
         }
 
-        fscanf(logFile, "%s ", turn);
-        if (makeaTurn(2)) {
+        fscanf(logFile, "%s ", board->turn);
+        if (makeaTurn(board)) {
             printf("ERROR: incorect input in turn %d\n", turnNumber);
             return -1;
         }
