@@ -1,3 +1,4 @@
 *.o
 *.html
 program
+test/test
