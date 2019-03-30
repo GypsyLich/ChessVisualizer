@@ -24,8 +24,8 @@ int makeaTurn(struct Board *board) {
 }
 
 int turnParse(struct Board *board, int *FigureToMakeATurn) {
-    int checkOnFigure;
-    switch (board->turn[0]) {
+    int figureFlag = checkOnFigure(board->turn);
+    /*switch (board->turn[0]) {
     case 'R':
         checkOnFigure = 2;
         break;
@@ -61,14 +61,25 @@ int turnParse(struct Board *board, int *FigureToMakeATurn) {
                                : 0;
 
     // check whether the entered value of the turn action is correct
-    int checkOnTurn = board->turn[2] == '-' || board->turn[2] == 'x' ? 2 : 0;
+    int checkOnTurnMove = board->turn[2] == '-' || board->turn[2] == 'x' ? 2 :
+    0;
 
     // check whether the entered value of the turn end is correct
     int checkOnTurnEnd = ((board->turn[3] > 96 && board->turn[3] < 105) &&
                           (board->turn[4] > 48 && board->turn[4] < 58))
                              ? 2
-                             : 0;
-    return checkOnFigure + checkOnTurnStart + checkOnTurn + checkOnTurnEnd;
+                             : 0;*/
+
+    if (figureFlag > 0) {
+        *FigureToMakeATurn = figureFlag;
+    }
+    if (figureFlag > 1) {
+        for (int i = 0; i < TURN_CAPACITY - 1; ++i) {
+            board->turn[i] = board->turn[i + 1];
+        }
+    }
+    return figureFlag + checkOnTurnStart(board->turn) +
+           checkOnTurnMove(board->turn) + checkOnTurnEnd(board->turn);
 }
 
 int checkLogic(struct Board *board, int FigureToMakeATurn,
@@ -95,4 +106,54 @@ int checkLogic(struct Board *board, int FigureToMakeATurn,
     }
 
     return 0;
+}
+
+//     MISC FUNCTIONS
+int checkOnFigure(char turn[TURN_CAPACITY]) {
+    int checkOnFigure;
+    switch (turn[0]) {
+    case 'R':
+        checkOnFigure = 2;
+        break;
+    case 'N':
+        checkOnFigure = 3;
+        break;
+    case 'B':
+        checkOnFigure = 4;
+        break;
+    case 'Q':
+        checkOnFigure = 5;
+        break;
+    case 'K':
+        checkOnFigure = 6;
+        break;
+    default:
+        checkOnFigure = (turn[0] > 96 && turn[0] < 105) ? 1 : -1;
+        break;
+    }
+    return checkOnFigure;
+}
+
+int checkOnTurnStart(char turn[TURN_CAPACITY]) {
+    if ((turn[0] > 96 && turn[0] < 105) && (turn[1] > 48 && turn[1] < 58)) {
+        return 2;
+    } else {
+        return 0;
+    }
+}
+
+int checkOnTurnMove(char turn[TURN_CAPACITY]) {
+    if (turn[2] == '-' || turn[2] == 'x') {
+        return 2;
+    } else {
+        return 0;
+    }
+}
+
+int checkOnTurnEnd(char turn[TURN_CAPACITY]) {
+    if ((turn[3] > 96 && turn[3] < 105) && (turn[4] > 48 && turn[4] < 58)) {
+        return 2;
+    } else {
+        return 0;
+    }
 }
