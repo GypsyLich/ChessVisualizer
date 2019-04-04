@@ -1,3 +1,7 @@
 os: linux
 language: C
-script: make All
+script:
+- git ls-files src/ | xargs clang-format -i && git diff --exit-code
+make All
+compiler: gcc
+dist: xenial
