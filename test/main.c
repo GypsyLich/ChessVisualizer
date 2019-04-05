@@ -72,6 +72,32 @@ CTEST(move_check, check_starting_cell) {
     const int expected = 0;
     ASSERT_EQUAL(expected, result);
 }
+
+CTEST(move_check, check_starting_cell_2) {
+    // Given
+    int startingCell = 0;
+    int figureToMakeATurn = 1;
+
+    // When
+    const int result = checkStartingCell(startingCell, figureToMakeATurn);
+
+    // Then
+    const int expected = 1;
+    ASSERT_EQUAL(expected, result);
+}
+
+CTEST(move_check, check_starting_cell_3) {
+    // Given
+    int startingCell = 0;
+    int figureToMakeATurn = 0;
+
+    // When
+    const int result = checkStartingCell(startingCell, figureToMakeATurn);
+
+    // Then
+    const int expected = 1;
+    ASSERT_EQUAL(expected, result);
+}
 CTEST(move_check, check_resulting_cell) {
     // Given
     int resultingCell = 0;
