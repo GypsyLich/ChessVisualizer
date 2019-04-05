@@ -2,6 +2,6 @@ os: linux
 language: C
 script:
 - git ls-files src/ | xargs clang-format -i && git diff --exit-code
-make All
+make All && make Test && ./test/test
 compiler: gcc
 dist: xenial
